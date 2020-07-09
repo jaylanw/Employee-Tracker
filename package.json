@@ -1,0 +1,22 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "View and manage your team all in one place. Clean, organized and simple so you can start planning your team's gameplans and get the day rolling.    Give it a try:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaylanw/Employee-Tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaylanw/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/jaylanw/Employee-Tracker#readme",
+  "dependencies": {
+    "inquirer": "^7.3.0"
+  }
+}

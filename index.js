@@ -16,8 +16,9 @@ connection.connect(function(err) {
 });
 
 
-function manageTeam() {
-  inquirer
+async function manageTeam() {
+  console.log("Welcome to Employee Tracker");
+  await inquirer
     .prompt({
       name: "action",
       type: "list",
@@ -71,12 +72,30 @@ function manageTeam() {
 }
 
 function viewEmployee() {
-
+  connection.query("SELECT * FROM employee", function(err, res) {
+    if (err) throw err;
+  })
         manageTeam();
 }
 
 function viewEmployeeDep() {
-
+  inquirer
+  .prompt({
+    name: "department",
+    type: "list",
+    message: "What department would you like to view?",
+    choices: [
+      "Parks",
+      "Accounting",
+      "Sales"
+    ]
+  })
+  .then(function(answer) {
+    console.log(answer.department);
+    connection.query("SELECT * FROM employees WHERE ?", { department: answer.department }, function(err, res) {
+      if (err) throw err;
+    })
+  })
         manageTeam();
 }
 
@@ -104,3 +123,5 @@ function updateManager() {
 
         manageTeam();
 }
+
+manageTeam();
