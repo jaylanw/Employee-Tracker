@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
   database: "employeeTracker_db"
 });
 
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
 });
@@ -34,94 +34,96 @@ async function manageTeam() {
         "exit"
       ]
     })
-    .then(function(answer) {
+    .then(function (answer) {
       switch (answer.action) {
-      case "View Employees":
-        viewEmployee();
-        break;
+        case "View Employees":
+          viewEmployee();
+          break;
 
-      case "View Employees by Department":
-        viewEmployeeDep();
-        break;
+        case "View Employees by Department":
+          viewEmployeeDep();
+          break;
 
-      case "View Employees by Manager":
-        viewEmployeeMan();
-        break;
+        case "View Employees by Manager":
+          viewEmployeeMan();
+          break;
 
-      case "Add Employee":
-        addEmployee();
-        break;
+        case "Add Employee":
+          addEmployee();
+          break;
 
-      case "Remove Employee":
-        removeEmployee();
-        break;
-      
-      case "Update Employee Role":
-        updateEmployee();
-        break;
+        case "Remove Employee":
+          removeEmployee();
+          break;
 
-      case "Update Manager Role":
-        updateManager();
-        break;
+        case "Update Employee Role":
+          updateEmployee();
+          break;
 
-      case "exit":
-        connection.end();
-        break;
+        case "Update Manager Role":
+          updateManager();
+          break;
+
+        case "exit":
+          connection.end();
+          break;
       }
     });
 }
 
 function viewEmployee() {
-  connection.query("SELECT * FROM employee", function(err, res) {
+  connection.query("SELECT * FROM employee", function (err, res) {
     if (err) throw err;
+    console.log("\n Employees retrieved from Database \n");
+    console.table(res);
   })
-        manageTeam();
+    manageTeam();
 }
 
-function viewEmployeeDep() {
-  inquirer
-  .prompt({
-    name: "department",
-    type: "list",
-    message: "What department would you like to view?",
-    choices: [
-      "Parks",
-      "Accounting",
-      "Sales"
-    ]
-  })
-  .then(function(answer) {
-    console.log(answer.department);
-    connection.query("SELECT * FROM employees WHERE ?", { department: answer.department }, function(err, res) {
-      if (err) throw err;
+async function viewEmployeeDep() {
+  await inquirer
+    .prompt({
+      name: "department",
+      type: "list",
+      message: "What department would you like to view?",
+      choices: [
+        "Parks",
+        "Accounting",
+        "Sales"
+      ]
     })
-  })
-        manageTeam();
-}
+    .then(function (answer) {
+      connection.query("SELECT * FROM department", function(err, answer) {
+        console.log("\n Departments Retrieved from Database \n");
+        console.table(answer);
+      });
+    manageTeam();
+    })
+  }
 
 function viewEmployeeMan() {
 
-        manageTeam();
+  manageTeam();
 }
 
 function addEmployee() {
 
-        manageTeam();
+  manageTeam();
 }
 
-function removeEmployee () {
+function removeEmployee() {
 
-        manageTeam();
+  manageTeam();
 }
 
 function updateEmployee() {
 
-        manageTeam();
+  manageTeam();
 }
 
 function updateManager() {
 
-        manageTeam();
+  manageTeam();
 }
 
 manageTeam();
