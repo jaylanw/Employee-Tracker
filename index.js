@@ -25,10 +25,11 @@ async function manageTeam() {
       message: "What would you like to do?",
       choices: [
         "View Employees", //
-        "View Employees by Department", //
-        "View Employees by Manager",
+        "View Departments", //
+        "View Roles",
         "Add Employee",
-        "Remove Employee",
+        "Add Department",
+        "Remove Employee", // 
         "Update Employee Role",
         "Update Manager Role",
         "exit"
@@ -41,16 +42,20 @@ async function manageTeam() {
           viewEmployee();
           break;
 
-        case "View Employees by Department":
+        case "View Departments":
           viewEmployeeDep();
           break;
 
-        case "View Employees by Manager":
-          viewEmployeeMan();
-          break;
+        case "View Roles":
+          viewRoles();
+        break;  
 
         case "Add Employee":
           addEmployee();
+          break;
+
+        case "Add Department":
+          addDepartment();
           break;
 
         case "Remove Employee":
@@ -74,7 +79,7 @@ async function manageTeam() {
 
 // View all employees
 function viewEmployee() {
-  connection.query("SELECT first_name AS FirstName , last_name as LastName , role.title as Role, role.salary AS Salary, department.name AS Department FROM employee INNER JOIN department ON department.id = employee.role_id left JOIN role ON role.id = employee.role_id", 
+  connection.query("SELECT first_name AS FirstName ,last_name as LastName , role.title as Role, role.salary AS Salary, department.name AS Department FROM employee INNER JOIN department ON department.id = employee.role_id left JOIN role ON role.id = employee.role_id", 
     function (err, results) {
     console.table(results);
     if (err) throw err;
@@ -83,30 +88,25 @@ function viewEmployee() {
   manageTeam();
 }
 
-// View employees by department
-async function viewEmployeeDep() {
-  await inquirer
-    .prompt({
-      name: "department",
-      type: "list",
-      message: "What department would you like to view?",
-      choices: [
-        "Parks",
-        "Accounting",
-        "Sales"
-      ]
-    })
-    .then(function (answer) {
-      connection.query("SELECT * FROM department", function (err, answer) {
-        console.log("\n Departments Retrieved from Database \n");
-        console.table(answer);
-      });
-      manageTeam();
-    })
+// View department
+function viewEmployeeDep() {
+  connection.query("SELECT * FROM department ", function (err, results) {
+    console.table(results);
+    if (err) throw err;
+
+  });
+
+    manageTeam();
 }
 
-function viewEmployeeMan() {
-// blehhh
+// View Roles
+function viewRoles() {
+  connection.query("SELECT * FROM role ", function (err, results) {
+    console.table(results);
+    if (err) throw err;
+
+});
+
   manageTeam();
 }
 
@@ -168,6 +168,11 @@ async function addEmployee() {
 
   manageTeam();
 }
+
+function addDepartment() {
+
+  manageTeam();
+};
 
 // Deleting employee from db
 function removeEmployee() {
