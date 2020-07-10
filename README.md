@@ -8,8 +8,6 @@
  ## Deployed App 
 ![alt text](https://github.com/jaylanw/Employee-Tracker/blob/master/assets/Screen%20Shot%202020-07-10%20at%205.50.36%20PM.png)
   
-## Usage
-
 
 ## Installation 
 - Clone the repo
