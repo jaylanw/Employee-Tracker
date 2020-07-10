@@ -28,8 +28,8 @@ async function manageTeam() {
         "View Departments", //
         "View Roles", // 
         "Add Employee",
-        "Add Department",
-        "Add Role",
+        "Add Department", // 
+        "Add Role", // 
         "Remove Employee", // 
         "Update Employee Role",
         "exit"
@@ -168,12 +168,26 @@ async function addEmployee() {
 
   manageTeam();
 }
-
-function addDepartment() {
-
+// Add department
+async function addDepartment() {
+  await inquirer
+  .prompt([
+    {
+    type: "input",
+    name: "department",
+    message: "What department would you like to add?"
+    }, 
+])
+  .then(function(answer) {
+    connection.query('INSERT INTO department (name) VALUES (?)', [answer.department], function(err, data) {
+        if (err) throw err;
+        console.table("\n Department added! \n");
+    })
+})
   manageTeam();
 };
 
+// Add role 
 async function addRole() {
   await inquirer
   .prompt([
@@ -188,7 +202,7 @@ async function addRole() {
         name: "salary"
     }, 
     {
-        message: "What is the department id?",
+        message: "What is the department id number?",
         type: "number",
         name: "department_id"
     }
@@ -200,7 +214,7 @@ async function addRole() {
     })
 })
   manageTeam();
-}
+};
 
 // Deleting employee from db
 function removeEmployee() {
@@ -237,9 +251,7 @@ function removeEmployee() {
 
 function updateEmployee() {
 
-
   manageTeam();
 }
-
 
 manageTeam();
