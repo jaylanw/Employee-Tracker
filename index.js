@@ -74,11 +74,12 @@ async function manageTeam() {
 
 // View all employees
 function viewEmployee() {
-  connection.query("SELECT * FROM employee", function (err, res) {
+  connection.query("SELECT first_name AS FirstName , last_name as LastName , role.title as Role, role.salary AS Salary, department.name AS Department FROM employee INNER JOIN department ON department.id = employee.role_id left JOIN role ON role.id = employee.role_id", 
+    function (err, results) {
+    console.table(results);
     if (err) throw err;
-    console.log("\n Employees retrieved from Database \n");
-    console.table(res);
-  })
+
+});
   manageTeam();
 }
 
@@ -147,6 +148,22 @@ async function addEmployee() {
     ])
     .then(function (answer) {
 
+      connection.query(
+        "INSERT INTO employee SET ?",
+        {
+          first_name: answer.firstName,
+          last_name: answer.lastName,
+          role_id: answer.role,
+          manager_id: answer.manager
+        },
+        function (err, answer) {
+          if (err) {
+            throw err;
+          }
+          console.table(answer);
+          console.log("\n Employee was added! \n");
+        }
+      );
     });
 
   manageTeam();
