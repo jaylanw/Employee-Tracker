@@ -26,12 +26,12 @@ async function manageTeam() {
       choices: [
         "View Employees", //
         "View Departments", //
-        "View Roles",
+        "View Roles", // 
         "Add Employee",
         "Add Department",
+        "Add Role",
         "Remove Employee", // 
         "Update Employee Role",
-        "Update Manager Role",
         "exit"
       ]
     })
@@ -58,16 +58,16 @@ async function manageTeam() {
           addDepartment();
           break;
 
+          case "Add Role":
+            addRole();
+            break;
+
         case "Remove Employee":
           removeEmployee();
           break;
 
         case "Update Employee Role":
           updateEmployee();
-          break;
-
-        case "Update Manager Role":
-          updateManager();
           break;
 
         case "exit":
@@ -174,6 +174,34 @@ function addDepartment() {
   manageTeam();
 };
 
+async function addRole() {
+  await inquirer
+  .prompt([
+    {
+        message: "What is the new role title?",
+        type: "input",
+        name: "title"
+    }, 
+    {
+        message: "What is this new role's salary?",
+        type: "number",
+        name: "salary"
+    }, 
+    {
+        message: "What is the department id?",
+        type: "number",
+        name: "department_id"
+    }
+])
+    .then(function (answer) {
+        connection.query("INSERT INTO role (title, salary, department_id) values (?, ?, ?)", [answer.title, answer.salary, answer.department_id], function (err, data) {
+          console.table(data);
+          console.log(`\n Role added! \n`);
+    })
+})
+  manageTeam();
+}
+
 // Deleting employee from db
 function removeEmployee() {
   connection.query("SELECT * FROM employee", function (err, results) {
@@ -209,12 +237,9 @@ function removeEmployee() {
 
 function updateEmployee() {
 
-  manageTeam();
-}
-
-function updateManager() {
 
   manageTeam();
 }
+
 
 manageTeam();
