@@ -1,12 +1,12 @@
 # Employee-Tracker
 
   View and manage your team all in one place. Organized and simple so you can start planning your team's gameplans and get the day rolling. 
-  Give it a try:
+  Give it a try!
  
   
   
  ## Deployed App 
-![alt text]()
+![alt text](https://github.com/jaylanw/Employee-Tracker/blob/master/assets/Screen%20Shot%202020-07-10%20at%205.50.36%20PM.png)
   
 ## Usage
 
