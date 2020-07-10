@@ -30,9 +30,9 @@ async function manageTeam() {
         "Add Employee", //
         "Add Department", // 
         "Add Role", // 
-        "Remove Employee", // 
-        "Update Employee Role",
-        "exit"
+      //  "Remove Employee", // 
+        "Update Employee Role", //
+        "exit" //
       ]
     })
     // Switch statement for functions
@@ -62,9 +62,9 @@ async function manageTeam() {
           addRole();
           break;
 
-        case "Remove Employee":
+       /* case "Remove Employee":
           removeEmployee();
-          break;
+          break; */
 
         case "Update Employee Role":
           updateEmployee();
@@ -101,8 +101,9 @@ function viewEmployeeDep() {
 
 // View Roles
 function viewRoles() {
-  connection.query("SELECT * FROM role ", function (err, answer) {
-    console.table(answer);
+  connection.query("SELECT * FROM role ", 
+    function (err, answer) {
+      console.table(answer);
     if (err) throw err;
 
   });
@@ -240,7 +241,6 @@ async function addRole() {
     ])
     .then(function (answer) {
       connection.query("INSERT INTO role (title, salary, department_id) values (?, ?, ?)", [answer.title, answer.salary, answer.department_id], function (err, data) {
-        console.table(data);
         console.log(`\n Role added! \n`);
       })
     })
@@ -248,7 +248,7 @@ async function addRole() {
 };
 
 // Deleting employee from db
-function removeEmployee() {
+/* async function removeEmployee() {
   connection.query("SELECT * FROM employee", function (err, answer) {
     if (err) throw err;
     inquirer
@@ -278,7 +278,7 @@ function removeEmployee() {
   });
 
   manageTeam();
-}
+} */
 
 function updateEmployee() {
   inquirer.prompt([
