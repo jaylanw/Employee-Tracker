@@ -1,6 +1,6 @@
 # Employee-Tracker
 
-  View and manage your team all in one place. Clean, organized and simple so you can start planning your team's gameplans and get the day rolling. 
+  View and manage your team all in one place. Organized and simple so you can start planning your team's gameplans and get the day rolling. 
   Give it a try:
  
   
@@ -13,14 +13,13 @@
 
 ## Installation 
 - Clone the repo
-- Run npm install
+-  If you don't have the prerequisites installed, type the following:
+   * npm install inquirer
+   * npm install mysql
+   * npm install console-table
       
 ## Contributors
   Jaylan Wienckowski
-
-## Challenges
-
-  
   
 ## Questions   [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/Naereen/ama)
 
