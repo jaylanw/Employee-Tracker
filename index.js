@@ -129,7 +129,7 @@ async function addEmployee() {
         type: "list",
         message: "What is their role?",
         choices: [
-          "Manage",
+          "Manager",
           "Sales",
           "Accountant",
           "Director"
@@ -147,20 +147,51 @@ async function addEmployee() {
       }
     ])
     .then(function (answer) {
+      var roleNum = answer.role
+        switch (answer.role) {
+          case "Manager":
+          roleNum = 1;
+          break;
 
+          case "Sales":
+          roleNum = 2;
+          break;
+      
+          case "Accountant":
+          roleNum = 3;
+          break;
+
+          case "Director":
+          roleNum = 4;
+          break;
+        }
+
+      var managerNum = answer.manager
+        switch (answer.manager) {
+          case "Michael Scott":
+          managerNum = 1;
+          break;
+
+          case "Leslie Knope":
+          managerNum = 2;
+          break;
+
+          case "This employee doesn't have a manager.":
+            managerNum = null;
+          break;
+        }
       connection.query(
         "INSERT INTO employee SET ?",
         {
           first_name: answer.firstName,
           last_name: answer.lastName,
-          role_id: answer.role,
-          manager_id: answer.manager
+          role_id: roleNum,
+          manager_id: managerNum
         },
         function (err, answer) {
           if (err) {
             throw err;
           }
-          console.table(answer);
           console.log("\n Employee was added! \n");
         }
       );
